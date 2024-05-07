@@ -1,0 +1,16 @@
+#Job Schedling
+def printJob(arr, t):
+  n= len(arr)
+  arr.sort(key=lambda x: x[1])
+  result = [False] * t
+  job = ['-1'] *t
+  for i in range(n):
+    for j in range(min(t, arr[i][1]) -1,-1,-1):
+      if result[j] is False:
+        result[j]= True
+        job[j] = arr[i][0]
+        break
+  print(job)
+arr= [[1, 2, 50],[2,1,10],[3,3,40],[4,2,60],[5,1,30],[6,3,20]]
+print('output')
+printJob(arr, 3)
