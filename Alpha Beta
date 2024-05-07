@@ -1,0 +1,22 @@
+#Alpha Beta
+def minimax(depth, depth_limit, nodeIndex, maximizingPlayer, values, alpha, beta):
+    if depth == depth_limit:
+        return values[nodeIndex]
+
+    best = float('-inf') if maximizingPlayer else float('inf')
+    for i in range(2):
+        val = minimax(depth + 1, depth_limit, nodeIndex * 2 + i, not maximizingPlayer, values, alpha, beta)
+        if maximizingPlayer:
+            best = max(best, val)
+            alpha = max(alpha, best)
+        else:
+            best = min(best, val)
+            beta = min(beta, best)
+        if beta <= alpha:
+            break
+    return best
+
+depth_limit = int(input("Enter the depth of the tree: "))
+values = [int(input(f"Enter value {i+1}: ")) for i in range(2 ** depth_limit)]
+
+print("The optimal value is:", minimax(0, depth_limit, 0, True, values, float('-inf'), float('inf')))
